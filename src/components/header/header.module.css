@@ -1,0 +1,42 @@
+.headerWrapper {
+  background-color: var(--white);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+
+  padding: 1rem 1rem;
+  max-width: 1050px;
+  margin: 0 auto 1.5rem auto;
+}
+
+.headerNav {
+  display: flex;
+  gap: 1rem;
+}
+
+.headerNavLink {
+  padding: 11px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--white);
+  background-color: var(--blue);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.headerNavLink:hover {
+  background-color: var(--blue-hover);
+}
+
+@media (max-width: 450px) {
+  .header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

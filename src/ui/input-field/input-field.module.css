@@ -1,0 +1,67 @@
+﻿.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.base-input {
+  border: 1px solid var(--grey-not-active);
+  border-radius: 8px;
+  padding: 11px 35px 11px 16px;
+  width: 100%;
+
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--grey-not-active);
+
+  outline: none;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.base-input.valid {
+  /* background-image: url("@/assets/icons/icon_valid.svg");*/
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px 20px;
+}
+
+.base-input.invalid {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.base-input:focus:not(.error) {
+  border: 1px solid var(--black);
+  color: var(--black);
+}
+
+.base-input:not(:placeholder-shown):not(.error):not(:focus):not([type='date']) {
+  font-size: 1rem;
+  color: var(--black);
+}
+
+input[type='date'].base-input {
+  padding-right: 34px;
+}
+
+.base-input.has-password-toggle {
+  padding-right: 68px;
+}
+.errorText {
+  color: var(--red);
+  font-size: 0.7rem;
+  min-height: 2rem;
+  transition: opacity 0.2s ease;
+  opacity: 0;
+}
+
+.error-text.visible {
+  opacity: 1;
+}
