@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { closeModal } from '../../store/modalSlice.ts';
+import { closeModal } from '../../store/modal-slice.ts';
 import type { RootState } from '../../store/store.ts';
 import UncontrolledForm from '../../form/uncontrolled-form/uncontrolled-form.tsx';
 import ReactHookForm from '../../form/react-hook-form/react-hook-form.tsx';
