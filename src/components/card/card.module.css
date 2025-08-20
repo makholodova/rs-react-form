@@ -1,0 +1,21 @@
+﻿.card {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  gap: 0.5rem;
+  background-color: var(--blue-lighter);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.field {
+  color: var(--black);
+}
+.field span {
+  color: var(--grey-dark);
+}
+.image {
+  align-self: center;
+  border-radius: 0.5rem;
+  width: 150px;
+}
