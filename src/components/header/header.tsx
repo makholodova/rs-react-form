@@ -4,7 +4,7 @@ import styles from './header.module.css';
 import { Link } from 'react-router-dom';
 import BaseButton from '../../ui/base-button/base-button.tsx';
 import { useDispatch } from 'react-redux';
-import { openModal } from '../../store/modalSlice.ts';
+import { openModal } from '../../store/modal-slice.ts';
 
 const Header: FC = () => {
   const dispatch = useDispatch();
