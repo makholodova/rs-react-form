@@ -1,4 +1,15 @@
-﻿.cardList {
+﻿.home {
+  display: flex;
+  gap: 2rem;
+}
+.section {
+  width: 50%;
+}
+.title {
+  margin-bottom: 1.5rem;
+}
+
+.cardsList {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;

@@ -9,16 +9,15 @@ export default function Home() {
   );
 
   return (
-    <div>
-      <h1>Home Page</h1>
-      <div>
-        <h2>Uncuncontrolled Form</h2>
-        <div className={styles.cardList}>
+    <div className={styles.home}>
+      <section className={styles.section}>
+        <h2 className={styles.title}>Uncontrolled Form</h2>
+        <div className={styles.cardsList}>
           {uncontrolledForm.users.map((user) => (
             <Card key={user.email} user={user} />
           ))}
         </div>
-      </div>
+      </section>
     </div>
   );
 }

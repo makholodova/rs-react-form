@@ -3,6 +3,8 @@
   flex-direction: column;
   width: 200px;
   gap: 0.5rem;
+  overflow: hidden;
+  word-break: break-word;
   background-color: var(--blue-lighter);
   border-radius: 1rem;
   padding: 1rem;

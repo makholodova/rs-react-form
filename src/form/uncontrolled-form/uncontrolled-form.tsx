@@ -4,13 +4,21 @@ import BaseButton from '../../ui/base-button/base-button.tsx';
 import type { RootState } from '../../store/store.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../store/modal-slice.ts';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { addUser } from '../../store/uncontrolled-form-slice.ts';
 import type { User } from '../../types';
 import { convertFileToBase64 } from '../../untils/convertFileToBase64.ts';
+import { formSchema, type FormValues } from '../../validation/form-schema.ts';
 
 export default function UncontrolledForm() {
   const dispatch = useDispatch();
+  const countries = useSelector<RootState, string[]>(
+    (state) => state.countries.countries
+  );
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof FormValues, string>>
+  >({});
+  const [submiting, setSubmitting] = useState(false);
 
   const nameInput = useRef<HTMLInputElement | null>(null);
   const ageInput = useRef<HTMLInputElement | null>(null);
@@ -25,43 +33,64 @@ export default function UncontrolledForm() {
   const imageInput = useRef<HTMLInputElement | null>(null);
   const acceptInput = useRef<HTMLInputElement | null>(null);
 
-  const countries = useSelector<RootState, string[]>(
-    (state) => state.countries.countries
-  );
-
   async function submitForm(event: React.FormEvent) {
     event.preventDefault();
-    const name = nameInput.current?.value ?? '';
-    const age = Number(ageInput.current?.value);
-    const email = emailInput.current?.value ?? '';
-    const password = passwordInput.current?.value ?? '';
-    const confirmPassword = confirmPasswordInput.current?.value ?? '';
-    const isMale = genderInput.male.current?.checked;
-    const isFemale = genderInput.female.current?.checked;
-    const gender = isMale ? 'male' : isFemale ? 'female' : '';
-    const country = countryInput.current?.value ?? '';
+    setSubmitting(true);
+    setErrors({});
 
-    const image = imageInput.current?.files?.[0];
-    const imageBase64Str = await convertFileToBase64(image);
-    const isTCAccepted = acceptInput.current?.checked ?? false;
-
-    const newUser: User = {
-      name,
-      age,
-      email,
-      password,
-      confirmPassword,
-      gender,
-      country,
-      image: imageBase64Str,
-      isTCAccepted,
+    const raw: FormValues = {
+      name: nameInput.current?.value ?? '',
+      age: Number(ageInput.current?.value),
+      email: emailInput.current?.value ?? '',
+      password: passwordInput.current?.value ?? '',
+      confirmPassword: confirmPasswordInput.current?.value ?? '',
+      gender: genderInput.male.current?.checked
+        ? 'male'
+        : genderInput.female.current?.checked
+          ? 'female'
+          : '',
+      country: countryInput.current?.value ?? '',
+      image: (imageInput.current?.files ??
+        new DataTransfer().files) as FileList,
+      isTCAccepted: !!acceptInput.current?.checked,
     };
 
-    console.log('imageInput', imageInput);
-    console.log('newUser', newUser);
+    const result = formSchema.safeParse(raw);
+
+    if (!result.success) {
+      const map: Partial<Record<keyof FormValues, string>> = {};
+      for (const issue of result.error.issues) {
+        const key = (issue.path[0] ?? 'form') as keyof FormValues;
+        if (!map[key]) map[key] = issue.message;
+      }
+      setErrors(map);
+      setSubmitting(false);
+      return;
+    }
+
+    const file = raw.image?.[0];
+    if (!file) {
+      setErrors((prev) => ({ ...prev, image: 'Please upload an image' }));
+      setSubmitting(false);
+      return;
+    }
+    const imageBase64Str = await convertFileToBase64(file);
+
+    const newUser: User = {
+      name: result.data.name,
+      age: Number(result.data.age),
+      email: result.data.email,
+      password: result.data.password,
+      confirmPassword: result.data.confirmPassword,
+      gender: result.data.gender,
+      country: result.data.country,
+      image: imageBase64Str,
+      isTCAccepted: result.data.isTCAccepted,
+    };
 
     dispatch(addUser({ user: newUser }));
     dispatch(closeModal());
+    setSubmitting(false);
   }
 
   return (
@@ -72,7 +101,7 @@ export default function UncontrolledForm() {
           <div className={styles.field}>
             <label htmlFor="name">Name* :</label>
             <input ref={nameInput} id="name" name="name" type="text" />
-            {/* {errors.name && <div className="error">{errors.name}</div>}*/}
+            <div className={styles.error}>{errors.name}</div>
           </div>
 
           <div className={styles.field}>
@@ -85,24 +114,24 @@ export default function UncontrolledForm() {
               min={0}
               max={150}
             />
-            {/*{errors.age && <div className="error">{errors.age}</div>}*/}
+            <div className={styles.error}>{errors.age}</div>
           </div>
 
           <div className={styles.field}>
             <label htmlFor="email">Email* :</label>
             <input ref={emailInput} id="email" name="email" type="email" />
-            {/*{errors.email && <div className="error">{errors.email}</div>}*/}
+            <div className={styles.error}>{errors.email}</div>
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="">Password* :</label>
+            <label htmlFor="password">Password* :</label>
             <input
               ref={passwordInput}
               id="password"
               name="password"
               type="password"
             />
-            {/* {errors.password && <div className="error">{errors.password}</div>}*/}
+            <div className={styles.error}>{errors.password}</div>
           </div>
 
           <div className={styles.field}>
@@ -113,7 +142,7 @@ export default function UncontrolledForm() {
               name="confirmPassword"
               type="password"
             />
-            {/*{errors.confirmPassword && <div className="error">{errors.confirmPassword}</div>}*/}
+            <div className={styles.error}>{errors.confirmPassword}</div>
           </div>
 
           <div className={styles.gender}>
@@ -137,7 +166,7 @@ export default function UncontrolledForm() {
               <span>Female</span>
             </label>
           </div>
-          {/*{errors.gender && <div className="error">{errors.gender}</div>}*/}
+          <div className={styles.error}>{errors.gender}</div>
 
           <div className={styles.field}>
             <label htmlFor="country">Country* :</label>
@@ -155,19 +184,19 @@ export default function UncontrolledForm() {
                 <option key={country} value={country} />
               ))}
             </datalist>
-            {/*{errors.country && <div className="error">{errors.country}</div>}*/}
+            <div className={styles.error}>{errors.country}</div>
           </div>
 
           <div className={styles.field}>
             <label htmlFor="image">Choose a profile picture* :</label>
             <input
+              id="image"
               ref={imageInput}
               className={styles.fileInput}
               type="file"
               accept="image/png, image/jpeg"
             />
-
-            {/*{errors.image && <div className="error">{errors.image}</div>}*/}
+            <div className={styles.error}>{errors.image}</div>
           </div>
 
           <div className={styles.field}>
@@ -175,10 +204,14 @@ export default function UncontrolledForm() {
               <input ref={acceptInput} type="checkbox" name="acceptTC" /> Accept
               Terms and Conditions agreement*
             </label>
-            {/*{errors.acceptTC && <div className="error">{errors.acceptTC}</div>}*/}
+            <div className={styles.error}>{errors.isTCAccepted}</div>
           </div>
         </div>
-        <BaseButton className={styles.buttonSubmit} type="submit">
+        <BaseButton
+          className={styles.buttonSubmit}
+          disabled={submiting}
+          type="submit"
+        >
           Submit
         </BaseButton>
       </form>
