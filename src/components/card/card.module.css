@@ -10,6 +10,12 @@
   padding: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+.cardNew {
+  background-color: var(--blue-lighter);
+  border: 2px solid var(--grey-light-active);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
 .field {
   color: var(--black);
 }

@@ -77,6 +77,7 @@ export default function UncontrolledForm() {
     const imageBase64Str = await convertFileToBase64(file);
 
     const newUser: User = {
+      id: String(Date.now()),
       name: result.data.name,
       age: Number(result.data.age),
       email: result.data.email,

@@ -1,9 +1,15 @@
 ﻿import type { User } from '../../types';
 import styles from './card.module.css';
 
-export default function Card({ user }: { user: User }) {
+export default function Card({
+  isNewUser,
+  user,
+}: {
+  isNewUser: boolean;
+  user: User;
+}) {
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${isNewUser ? styles.cardNew : ''}`}>
       <img
         className={styles.image}
         alt={`${user.name}-photo`}
