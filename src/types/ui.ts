@@ -1,20 +1,14 @@
-﻿import * as React from 'react';
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
-
-export type Validator = (value: string) => string | null | undefined;
+﻿import type { ButtonHTMLAttributes, RefObject, ReactNode } from 'react';
 
 export interface InputFieldProps {
-  id?: string;
+  id: string;
   name: string;
-  label: string;
-  type: React.HTMLInputTypeAttribute;
-  validators?: Validator[];
+  labelText?: string;
   placeholder?: string;
-  showError?: boolean;
+  inputType?: 'text' | 'number' | 'password' | 'email';
+  refInput?: RefObject<HTMLInputElement | null>;
   autoComplete?: string;
-  value: string;
-  onChange: (value: string) => void;
-  className?: string;
+  errorMessage?: string;
 }
 
 export interface BaseButtonProps

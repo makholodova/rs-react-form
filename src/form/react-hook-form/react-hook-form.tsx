@@ -10,6 +10,7 @@ import { z } from 'zod';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../store/modal-slice.ts';
 import { addUser } from '../../store/react-hook-form-slice.ts';
+import InputField from '../../ui/input-field/input-field.tsx';
 
 type FormValues = z.infer<typeof formSchema>;
 
@@ -51,47 +52,45 @@ export default function ReactHookForm() {
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <h2 className={styles.title}>React Hook Form</h2>
         <div className={styles.content}>
-          <div className={styles.field}>
-            <label htmlFor="name">Name* :</label>
-            <input {...register('name')} id="name" type="text" />
-            <div className={styles.error}>{errors.name?.message}</div>
-          </div>
+          <InputField
+            id="name"
+            type="text"
+            {...register('name')}
+            labelText="Name* :"
+            errorMessage={errors.name?.message}
+          />
 
-          <div className={styles.field}>
-            <label htmlFor="age">Age* :</label>
-            <input
-              id="age"
-              {...register('age', { valueAsNumber: true })}
-              type="number"
-              min={0}
-              max={150}
-            />
-            <div className={styles.error}>{errors.age?.message}</div>
-          </div>
+          <InputField
+            id="age"
+            type="number"
+            {...register('age')}
+            labelText="Age* :"
+            errorMessage={errors.age?.message}
+          />
 
-          <div className={styles.field}>
-            <label htmlFor="email">Email* :</label>
-            <input {...register('email')} id="email" type="email" />
-            <div className={styles.error}>{errors.email?.message}</div>
-          </div>
+          <InputField
+            id="email"
+            type="email"
+            labelText="Email* :"
+            errorMessage={errors.email?.message}
+            {...register('email')}
+          />
 
-          <div className={styles.field}>
-            <label htmlFor="password">Password* :</label>
-            <input {...register('password')} id="password" type="password" />
-            <div className={styles.error}>{errors.password?.message}</div>
-          </div>
+          <InputField
+            id="password"
+            type="password"
+            labelText="Password* :"
+            errorMessage={errors.password?.message}
+            {...register('password')}
+          />
 
-          <div className={styles.field}>
-            <label htmlFor="confirmPassword">Password (confirm)* :</label>
-            <input
-              {...register('confirmPassword')}
-              id="confirmPassword"
-              type="password"
-            />
-            <div className={styles.error}>
-              {errors.confirmPassword?.message}
-            </div>
-          </div>
+          <InputField
+            id="confirmPassword"
+            type="password"
+            labelText="Password (confirm)* :"
+            errorMessage={errors.confirmPassword?.message}
+            {...register('confirmPassword')}
+          />
 
           <div className={styles.gender}>
             <p>Gender* :</p>
@@ -106,23 +105,20 @@ export default function ReactHookForm() {
           </div>
           <div className={styles.error}>{errors.gender?.message}</div>
 
-          <div className={styles.field}>
-            <label htmlFor="country">Country* :</label>
-            <input
-              {...register('country')}
-              id="country"
-              type="text"
-              list="country-list"
-              autoComplete="on"
-              placeholder="Start typing country..."
-            />
-            <datalist id="country-list">
-              {countries.map((country) => (
-                <option key={country} value={country} />
-              ))}
-            </datalist>
-            <div className={styles.error}>{errors.country?.message}</div>
-          </div>
+          <InputField
+            id="country"
+            labelText="Country* :"
+            list="country-list"
+            autoComplete="on"
+            placeholder="Start typing country..."
+            errorMessage={errors.country?.message}
+            {...register('country')}
+          />
+          <datalist id="country-list">
+            {countries.map((country) => (
+              <option key={country} value={country} />
+            ))}
+          </datalist>
 
           <div className={styles.field}>
             <label htmlFor="image">Choose a profile picture* :</label>

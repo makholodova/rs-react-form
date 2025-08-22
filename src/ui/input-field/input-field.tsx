@@ -1,44 +1,22 @@
-﻿import { type FC } from 'react';
-
+﻿import { type InputHTMLAttributes, forwardRef } from 'react';
 import styles from './input-field.module.css';
-import type { InputFieldProps } from '../../types/ui.ts';
 
-const InputFaild: FC<InputFieldProps> = ({
-  id,
-  name,
-  label,
-  type,
-  validators = [],
-  placeholder,
-  showError = true,
-  autoComplete,
-  value,
-  onChange,
-  className,
-}) => {
-  const errorMessage =
-    validators.map((v) => v(value)).find((msg) => !!msg) ?? '';
+type InputFieldProps = {
+  id: string;
+  labelText: string;
+  errorMessage?: string;
+} & InputHTMLAttributes<HTMLInputElement>;
 
-  return (
-    <label className={`${styles.field} ${className ?? ''}`}>
-      <span>{label}</span>
-      <span className={styles.inputWrapper}>
-        <input
-          placeholder={placeholder}
-          name={name}
-          id={id}
-          className={styles.baseInput}
-          type={type}
-          autoComplete={autoComplete}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-        />
-      </span>
-      {showError && (
-        <span className={styles.errorText}>`Ошибка ${errorMessage}`</span>
-      )}
-    </label>
-  );
-};
-
-export default InputFaild;
+const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
+  ({ id, labelText, errorMessage, ...rest }, ref) => {
+    return (
+      <div className={styles.field}>
+        <label htmlFor={id}>{labelText}</label>
+        <input id={id} ref={ref} {...rest} className={styles.baseInput} />
+        <div className={styles.error}>{errorMessage}</div>
+      </div>
+    );
+  }
+);
+InputField.displayName = 'InputField';
+export default InputField;
