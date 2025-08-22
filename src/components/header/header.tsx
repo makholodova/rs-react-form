@@ -18,7 +18,7 @@ const Header: FC = () => {
   return (
     <header className={styles.headerWrapper}>
       <div className={styles.header}>
-        <Link to="/">React-form</Link>
+        <Link to="/">REACT FORM</Link>
         <nav className={styles.headerNav}>
           <BaseButton
             onClick={openReactHookForm}
