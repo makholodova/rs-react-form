@@ -12,7 +12,6 @@ const fileListSchema = z
     { message: 'Please upload an image' }
   )
   .superRefine((fl, ctx) => {
-    // нет FileList или он пустой
     if (!fl || fl.length === 0) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
@@ -52,7 +51,7 @@ export const formSchema = z
       .min(1, 'Name is required')
       .regex(/^[A-Z].*$/, 'First letter should be in upper case (A-Z)')
       .regex(/([a-zA-Z]+)$/, 'Only english letters are allowed'),
-    age: z.coerce
+    age: z
       .number()
       .int('Age should be an integer number')
       .positive('Age should be a positive number')
@@ -70,7 +69,6 @@ export const formSchema = z
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message: `Password should include: ${errors.join(', ')}`,
-            path: ['password'], // <— именно password
           });
         }
       }),

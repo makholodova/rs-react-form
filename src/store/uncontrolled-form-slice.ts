@@ -2,13 +2,13 @@
 import type { User } from '../types';
 
 type UncontrolledFormState = {
-  users: User[];
-  lastAddedId: string | null;
+  usersUCF: User[];
+  lastAddedIdUCF: string | null;
 };
 
 const initialState: UncontrolledFormState = {
-  users: [],
-  lastAddedId: null,
+  usersUCF: [],
+  lastAddedIdUCF: null,
 };
 
 const uncontrolledFormSlice = createSlice({
@@ -17,14 +17,14 @@ const uncontrolledFormSlice = createSlice({
   reducers: {
     addUser: (state, action) => {
       const user = action.payload.user;
-      state.users = [user, ...state.users];
-      state.lastAddedId = action.payload.user.id;
+      state.usersUCF = [user, ...state.usersUCF];
+      state.lastAddedIdUCF = action.payload.user.id;
     },
-    clearLastAdded(state) {
-      state.lastAddedId = null;
+    clearLastAddedUCF(state) {
+      state.lastAddedIdUCF = null;
     },
   },
 });
 
-export const { addUser, clearLastAdded } = uncontrolledFormSlice.actions;
+export const { addUser, clearLastAddedUCF } = uncontrolledFormSlice.actions;
 export default uncontrolledFormSlice.reducer;

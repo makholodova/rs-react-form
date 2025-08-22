@@ -3,34 +3,50 @@ import type { RootState } from '../../store/store.ts';
 import Card from '../card/card.tsx';
 import styles from './home.module.css';
 import { useEffect } from 'react';
-import { clearLastAdded } from '../../store/uncontrolled-form-slice.ts';
+import { clearLastAddedUCF } from '../../store/uncontrolled-form-slice.ts';
+import { clearLastAddedRHF } from '../../store/react-hook-form-slice.ts';
 
 export default function Home() {
   const dispatch = useDispatch();
-  const { users, lastAddedId } = useSelector(
+  const { usersUCF, lastAddedIdUCF } = useSelector(
     (state: RootState) => state.uncontrolledForm
   );
 
+  const { usersRHF, lastAddedIdRHF } = useSelector(
+    (state: RootState) => state.reactHookForm
+  );
+
   useEffect(() => {
-    if (!lastAddedId) return;
-    const time = setTimeout(() => dispatch(clearLastAdded()), 5000);
-    return () => clearTimeout(time);
-  }, [lastAddedId, dispatch]);
+    if (!lastAddedIdUCF) return;
+    const t = setTimeout(() => dispatch(clearLastAddedUCF()), 5000);
+    return () => clearTimeout(t);
+  }, [lastAddedIdUCF, dispatch]);
+
+  useEffect(() => {
+    if (!lastAddedIdRHF) return;
+    const t = setTimeout(() => dispatch(clearLastAddedRHF()), 5000);
+    return () => clearTimeout(t);
+  }, [lastAddedIdRHF, dispatch]);
 
   return (
     <div className={styles.home}>
       <section className={styles.section}>
         <h2 className={styles.title}>Uncontrolled Form</h2>
         <div className={styles.cardsList}>
-          {users.map((user) => {
-            const isNew = user.id === lastAddedId;
+          {usersUCF.map((user) => {
+            const isNew = user.id === lastAddedIdUCF;
             return <Card isNewUser={isNew} key={user.email} user={user} />;
           })}
         </div>
       </section>
       <section className={styles.section}>
         <h2 className={styles.title}>React Hook Form</h2>
-        <div className={styles.cardList}>Здесь будут данные</div>
+        <div className={styles.cardsList}>
+          {usersRHF.map((user) => {
+            const isNew = user.id === lastAddedIdRHF;
+            return <Card isNewUser={isNew} key={user.email} user={user} />;
+          })}
+        </div>
       </section>
     </div>
   );
