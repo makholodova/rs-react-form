@@ -18,22 +18,6 @@
   gap: 1rem;
 }
 
-.headerNavLink {
-  padding: 11px 16px;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--white);
-  background-color: var(--blue);
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.headerNavLink:hover {
-  background-color: var(--blue-hover);
-}
-
 @media (max-width: 450px) {
   .header {
     flex-direction: column;

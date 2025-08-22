@@ -105,11 +105,13 @@ export default function UncontrolledForm() {
             labelText="Name* :"
             type="text"
             name="name"
+            autoComplete="name"
             ref={nameInput}
             errorMessage={errors.name}
           />
           <InputField
             id="age"
+            autoComplete="bday"
             labelText="Age* :"
             type="number"
             name="age"
@@ -117,6 +119,7 @@ export default function UncontrolledForm() {
             errorMessage={errors.age}
           />
           <InputField
+            autoComplete="email"
             id="email"
             name="email"
             type="email"
@@ -126,6 +129,7 @@ export default function UncontrolledForm() {
           />
 
           <InputField
+            autoComplete="new-password"
             id="password"
             name="password"
             type="password"
@@ -135,6 +139,7 @@ export default function UncontrolledForm() {
           />
 
           <InputField
+            autoComplete="new-password"
             id="confirmPassword"
             name="confirmPassword"
             type="password"

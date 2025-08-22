@@ -20,18 +20,8 @@ const Header: FC = () => {
       <div className={styles.header}>
         <Link to="/">REACT FORM</Link>
         <nav className={styles.headerNav}>
-          <BaseButton
-            onClick={openReactHookForm}
-            className={styles.headerNavLink}
-          >
-            React Hook Form
-          </BaseButton>
-          <BaseButton
-            onClick={openUncontrolled}
-            className={styles.headerNavlink}
-          >
-            Uncontrolled Form
-          </BaseButton>
+          <BaseButton onClick={openReactHookForm}>React Hook Form</BaseButton>
+          <BaseButton onClick={openUncontrolled}>Uncontrolled Form</BaseButton>
         </nav>
       </div>
     </header>

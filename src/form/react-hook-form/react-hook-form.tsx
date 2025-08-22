@@ -55,6 +55,7 @@ export default function ReactHookForm() {
           <InputField
             id="name"
             type="text"
+            autoComplete="name"
             {...register('name')}
             labelText="Name* :"
             errorMessage={errors.name?.message}
@@ -62,6 +63,7 @@ export default function ReactHookForm() {
 
           <InputField
             id="age"
+            autoComplete="bday"
             type="number"
             {...register('age')}
             labelText="Age* :"
@@ -70,6 +72,7 @@ export default function ReactHookForm() {
 
           <InputField
             id="email"
+            autoComplete="email"
             type="email"
             labelText="Email* :"
             errorMessage={errors.email?.message}
@@ -79,6 +82,7 @@ export default function ReactHookForm() {
           <InputField
             id="password"
             type="password"
+            autoComplete="new-password"
             labelText="Password* :"
             errorMessage={errors.password?.message}
             {...register('password')}
@@ -87,6 +91,7 @@ export default function ReactHookForm() {
           <InputField
             id="confirmPassword"
             type="password"
+            autoComplete="new-password"
             labelText="Password (confirm)* :"
             errorMessage={errors.confirmPassword?.message}
             {...register('confirmPassword')}
