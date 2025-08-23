@@ -51,7 +51,7 @@ export const formSchema = z
       .min(1, 'Name is required')
       .regex(/^[A-Z].*$/, 'First letter should be in upper case (A-Z)')
       .regex(/^[A-Za-z]+$/, 'Only english letters are allowed'),
-    age: z.coerce
+    age: z
       .number()
       .int('Age should be an integer number')
       .positive('Age should be a positive number')
