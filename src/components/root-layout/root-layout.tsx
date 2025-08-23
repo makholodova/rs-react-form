@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router';
+import { Outlet } from 'react-router-dom';
 import styles from './root-layout.module.css';
 import Header from '../header/header';
 import ModalRoot from '../modal/modal-root.tsx';
