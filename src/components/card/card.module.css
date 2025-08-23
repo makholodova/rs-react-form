@@ -1,0 +1,29 @@
+﻿.card {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  gap: 0.5rem;
+  overflow: hidden;
+  word-break: break-word;
+  background-color: var(--blue-lighter);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.cardNew {
+  background-color: var(--blue-lighter);
+  border: 2px solid var(--grey-light-active);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.field {
+  color: var(--black);
+}
+.field span {
+  color: var(--grey-dark);
+}
+.image {
+  align-self: center;
+  border-radius: 0.5rem;
+  width: 150px;
+}

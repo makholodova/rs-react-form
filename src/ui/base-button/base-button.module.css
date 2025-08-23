@@ -1,0 +1,24 @@
+﻿.baseButton {
+  display: flex;
+  align-items: center;
+  padding: 11px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--white);
+  background-color: var(--blue);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.baseButton:hover {
+  background-color: var(--blue-hover);
+}
+
+.baseButton:disabled {
+  pointer-events: none;
+  opacity: 0.8;
+  filter: grayscale(1);
+}

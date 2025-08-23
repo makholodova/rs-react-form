@@ -1,0 +1,30 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+
+:root {
+  --blue: #091d9e;
+  --blue-hover: rgba(9, 29, 158, 0.8);
+  --blue-light: #bcc5ff;
+  --blue-lighter: #e3e9ff;
+  --purple: #750dc5;
+  --purple-dark: #41096a;
+  --purple-light: rgba(117, 13, 197, 0.5);
+  --white: #f6f6f6;
+  --black: #0c0c0c;
+  --grey: #ababab;
+  --grey-light: #c1c1c1;
+  --grey-lighter: #dedede;
+  --grey-dark: #454545;
+  --grey-not-active: #505050;
+  --grey-light-active: rgba(193, 193, 193, 0.8);
+  --yellow: #ebba1a;
+  --green: #169b00;
+  --red: #ff0000;
+  --purple-blue-gradient: linear-gradient(90deg, #260dc1 0%, #59006f 100%);
+}
