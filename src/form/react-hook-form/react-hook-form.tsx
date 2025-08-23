@@ -65,7 +65,7 @@ export default function ReactHookForm() {
             id="age"
             autoComplete="bday"
             type="number"
-            {...register('age')}
+            {...register('age', { valueAsNumber: true })}
             labelText="Age* :"
             errorMessage={errors.age?.message}
           />

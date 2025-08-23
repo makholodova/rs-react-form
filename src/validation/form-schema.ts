@@ -55,6 +55,7 @@ export const formSchema = z
       .number()
       .int('Age should be an integer number')
       .positive('Age should be a positive number')
+      .min(1, 'Age must be >= 1')
       .max(150, 'Age should be <= 150'),
     email: z
       .string()
